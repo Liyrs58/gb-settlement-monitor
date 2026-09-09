@@ -1,0 +1,19 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GB Settlement results</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:16px;background:#f4f6f8}
+h1{color:#1f3a5f}
+img{width:100%;height:auto}
+</style>
+<h1>GB Settlement &amp; Imbalance results</h1>
+<p>Independent portfolio. Not affiliated with Elexon. Power BI not required.</p>
+<div id="c">Loading images…</div>
+<script>
+const base = "https://raw.githubusercontent.com/Liyrs58/gb-settlement-monitor/main/";
+const files = ["part0.html","part1.html","part2.html","part3.html"];
+Promise.all(files.map(f => fetch(base + f).then(r => r.text())))
+  .then(t => { document.getElementById("c").innerHTML = t.join(""); })
+  .catch(e => { document.getElementById("c").textContent = "Failed: " + e; });
+</script>
