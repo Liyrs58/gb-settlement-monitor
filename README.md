@@ -1,13 +1,15 @@
 # GB Settlement Monitor — results
 
-Open this in Safari (public HTTPS):
+Open **this link in Safari** (public HTTPS, works from your Mac):
 
-**https://htmlpreview.github.io/?https://raw.githubusercontent.com/Liyrs58/gb-settlement-monitor/main/index.html**
+https://htmlpreview.github.io/?https://raw.githubusercontent.com/Liyrs58/gb-settlement-monitor/main/index.html
 
-Backup CDN (may take a minute to refresh):
+Same page on GitHub:
 
-**https://cdn.jsdelivr.net/gh/Liyrs58/gb-settlement-monitor@main/index.html**
+https://github.com/Liyrs58/gb-settlement-monitor
 
-Repo: https://github.com/Liyrs58/gb-settlement-monitor
+CDN copy:
 
-If images do not appear, wait 30 seconds and refresh. Independent portfolio — not affiliated with Elexon.
+https://cdn.jsdelivr.net/gh/Liyrs58/gb-settlement-monitor@main/index.html
+
+Independent portfolio using public Elexon Insights data. Not affiliated with Elexon.
