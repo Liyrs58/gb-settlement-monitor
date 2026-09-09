@@ -1,34 +1,94 @@
 <!doctype html>
-<html lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GB Settlement results</title>
+<title>GB Settlement Monitor — results</title>
 <style>
-body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:16px;background:#f4f6f8;color:#0f172a}
-header{background:#1f3a5f;color:#fff;padding:16px;border-radius:8px}
-img{width:100%;height:auto;border:1px solid #d6dee8;border-radius:8px;background:#fff}
-.ok{background:#dcfce7;color:#14532d;padding:10px;border-radius:8px}
-a{color:#1f3a5f}
-</style></head>
+:root{--navy:#1f3a5f;--ink:#0f172a;--muted:#475569;--bg:#f4f6f8;--card:#fff;--ok:#14532d;--warn:#9a3412}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+header{background:var(--navy);color:#fff;padding:28px 20px}
+header p{max-width:900px;margin:8px auto 0;opacity:.92}
+h1{max-width:900px;margin:0 auto;font-size:1.45rem}
+main{max-width:900px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid #d6dee8;border-radius:10px;padding:14px}
+.card b{display:block;font-size:1.35rem;color:var(--navy)}
+.card span{color:var(--muted);font-size:.82rem}
+.ok{background:#dcfce7;color:var(--ok);padding:12px 14px;border-radius:10px}
+.warn{background:#ffedd5;color:var(--warn);padding:12px 14px;border-radius:10px;margin:12px 0}
+h2{color:var(--navy);font-size:1.1rem;margin:28px 0 10px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #e8eef4;font-size:.95rem;vertical-align:top}
+th{background:#e8eef6;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+.bar{height:12px;background:#dbe4ee;border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#1f3a5f}
+footer{color:var(--muted);font-size:.85rem;padding:24px 0}
+a{color:#1d4ed8}
+</style>
+</head>
 <body>
-<header><h1>GB Settlement &amp; Imbalance results</h1>
-<p>Independent portfolio using public Elexon data. Not affiliated with Elexon.</p></header>
-<p class="ok">This page loaded. Scroll for the insight note, 8 slides and charts.</p>
-<div id="c">Loading images…</div>
-<script>
-const base = "https://cdn.jsdelivr.net/gh/Liyrs58/gb-settlement-monitor@main/";
-const n = 17;
-const files = Array.from({length:n}, (_,i) => "p"+i+".html");
-Promise.all(files.map(f => fetch(base + f).then(r => {
-  if (!r.ok) throw new Error(f + " " + r.status);
-  return r.text();
-}))).then(t => { document.getElementById("c").innerHTML = t.join(""); })
-.catch(e => {
-  // fallback to raw.githubusercontent
-  const base2 = "https://raw.githubusercontent.com/Liyrs58/gb-settlement-monitor/main/";
-  return Promise.all(files.map(f => fetch(base2 + f).then(r => r.text())))
-    .then(t => { document.getElementById("c").innerHTML = t.join(""); })
-    .catch(e2 => { document.getElementById("c").textContent = "Failed: " + e + " / " + e2; });
-});
-</script>
-</body></html>
+<header>
+<h1>GB Settlement &amp; Imbalance Service Intelligence</h1>
+<p>Independent portfolio using public Elexon Insights data (1 Aug – 31 Oct 2025). Not affiliated with Elexon. Power BI is not required to read this page.</p>
+</header>
+<main>
+<p class="ok">This page is hosted on GitHub. Open it in Safari. Figures below are observed or derived from BMRS / Insights APIs — no root-cause claims.</p>
+<div class="grid">
+<div class="card"><b>4,418</b><span>Settlement Periods (100% complete)</span></div>
+<div class="card"><b>487</b><span>Max System Price £/MWh</span></div>
+<div class="card"><b>−87</b><span>Min System Price £/MWh</span></div>
+<div class="card"><b>70</b><span>Median System Price £/MWh</span></div>
+<div class="card"><b>124</b><span>Flagged periods (2.81%)</span></div>
+<div class="card"><b>2,174</b><span>Max |NIV| MWh</span></div>
+</div>
+
+<h2>System length mix</h2>
+<div class="card">
+<p>Short 1,971 (44.6%)</p>
+<div class="bar"><i style="width:44.6%"></i></div>
+<p>Long 2,445 (55.3%)</p>
+<div class="bar"><i style="width:55.3%"></i></div>
+<p>Balanced 2 periods.</p>
+</div>
+
+<h2>Three selected cases</h2>
+<table>
+<thead><tr><th>Case</th><th>When</th><th>Price</th><th>NIV / length</th></tr></thead>
+<tbody>
+<tr>
+<td>Max System Price</td>
+<td>13 Oct 2025 SP26</td>
+<td>487.00 £/MWh</td>
+<td>NIV +184.9 MWh, short. Derivation P. Market price 123.13. Main-price volume 0.985 MWh.</td>
+</tr>
+<tr>
+<td>Min System Price</td>
+<td>6 Sep 2025 SP27</td>
+<td>−87.00 £/MWh</td>
+<td>NIV −1,802 MWh, long. Derivation N.</td>
+</tr>
+<tr>
+<td>Max |NIV|</td>
+<td>6 Sep 2025 SP25</td>
+<td>−77.12 £/MWh</td>
+<td>NIV −2,174 MWh, long. Derivation N.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Exception flags</h2>
+<p>124 flags using window percentiles: price ≥ 157 £/MWh (P99), price ≤ −24.95 (P1), |NIV| ≥ 960.6 MWh (P99). Completeness 100%. Duplicate keys 0. Quality fails 0. Clock-change day 2025-10-26 had 50 periods as expected.</p>
+
+<h2>How to read this</h2>
+<ul>
+<li><b>Observed</b> — published Elexon values.</li>
+<li><b>Derived</b> — calculated from those values (means, flags, shares).</li>
+<li><b>Hypothesis</b> — interview talking points only, not proven causes.</li>
+</ul>
+<p>Repo: <a href="https://github.com/Liyrs58/gb-settlement-monitor">github.com/Liyrs58/gb-settlement-monitor</a></p>
+<footer>Built for an Elexon Service Analyst (Settlement &amp; Insight) application. Python and DuckDB agree. 41 pytest tests.</footer>
+</main>
+</body>
+</html>
